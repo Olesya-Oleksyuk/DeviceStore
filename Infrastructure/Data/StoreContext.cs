@@ -1,7 +1,7 @@
-using API.Entities;
 using Microsoft.EntityFrameworkCore;
+using Core.Entities;
 
-namespace API.Data
+namespace Infrastructure.Data
 {
   public class StoreContext : DbContext
   {
