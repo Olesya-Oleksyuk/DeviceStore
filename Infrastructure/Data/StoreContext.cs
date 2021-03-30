@@ -11,5 +11,7 @@ namespace Infrastructure.Data
 
     // This property allows us to query those entities and retrieve the data we're looking for from DB
     public DbSet<Product> Products { get; set; }
+    public DbSet<ProductBrand> ProductBrands { get; set; }
+    public DbSet<ProductType> ProductTypes { get; set; }
   }
 }
