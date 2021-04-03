@@ -32,13 +32,14 @@ namespace API
           var context = services.GetRequiredService<StoreContext>();
           // apply any pending (ожидаемые) migrations for the context to the DB & create DB if it doesn't exist
           await context.Database.MigrateAsync();
+          // seed the data into the DB
+          await StoreContextSeed.SeedAsync(context, loggerFactory);
         }
         catch (Exception ex)
         {
           // create the instance of the logger service (Program - the class that we wanna log against)
           var logger = loggerFactory.CreateLogger<Program>();
           logger.LogError(ex, "An error occured during migration");
-
         }
       }
 
