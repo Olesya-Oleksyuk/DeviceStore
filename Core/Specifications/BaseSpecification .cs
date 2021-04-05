@@ -13,11 +13,15 @@ namespace Core.Specifications
 
     public Expression<Func<T, bool>> Criteria { get; }
 
+
+
     /// <summary>
     /// The list of Include() statements. 
     /// </summary>
     public List<Expression<Func<T, object>>> Includes { get; } =
         new List<Expression<Func<T, object>>>();
+
+
 
     /// <summary>
     ///  Allows us to add Include() statements to "Includes" list.
