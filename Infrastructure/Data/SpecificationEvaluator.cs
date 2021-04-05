@@ -14,7 +14,8 @@ namespace Infrastructure.Data
       // Evaluate what's inside this specification
       if (spec.Criteria != null)
       {
-        query = query.Where(spec.Criteria);
+        // Give me a Product, where the Product matches the Criteria from the Spec (i.e. matches given lambda expression)
+        query = query.Where(spec.Criteria); // Criteria = (p => p.ProductTypeId == id) - lambda expression
       }
 
       // Evalute the Includes:
