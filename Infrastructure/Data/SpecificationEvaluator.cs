@@ -7,6 +7,13 @@ namespace Infrastructure.Data
 {
   public class SpecificationEvaluator<TEntity> where TEntity : BaseEntity
   {
+    /// <summary>
+    /// Connect Criteria-expression and Includes with DbSet to get actual Query to DB.
+    /// </summary>
+    /// <param name="inputQuery">DbSet of type "EntityName". Thanks to DbSet type, we can use DBSet context methods 
+    /// such as Where() to actually apply the queires form spec.Criteria into our expression.</param>
+    /// <param name="spec">The spec, which contains Criteria Linq-Expression and Include statements.</param>
+    /// <returns>IQueryable query-object to call an async DB method on.</returns>
     public static IQueryable<TEntity> GetQuery(IQueryable<TEntity> inputQuery, ISpecification<TEntity> spec)
     {
       var query = inputQuery;

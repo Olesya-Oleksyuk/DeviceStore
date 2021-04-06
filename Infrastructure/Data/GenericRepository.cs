@@ -31,15 +31,21 @@ namespace Infrastructure.Data
 
 
 
-
+    /// <summary>
+    ///  Execute the query according to the given Spec and return the data from DB
+    /// </summary>
     public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
     {
+      // FirstOrDefaultAsync() is where we actually executes the queries & return the data from DB
       return await ApplySpecification(spec).FirstOrDefaultAsync();
     }
 
-
+    /// <summary>
+    ///  Execute the query according to the given Spec and return the data from DB
+    /// </summary>
     public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
     {
+      // ToListAsync() is where we actually executes the queries & return the data from DB
       return await ApplySpecification(spec).ToListAsync();
     }
 
