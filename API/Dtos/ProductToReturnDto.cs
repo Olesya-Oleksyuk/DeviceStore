@@ -1,7 +1,7 @@
 namespace API.Dtos
 {
   /// <summary>
-  ///  A flat object to return to the client side.
+  ///  A flat object to return to the client side/
   /// </summary> 
   public class ProductToReturnDto
   {

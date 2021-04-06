@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
+using API.Helpers;
 
 namespace API
 {
@@ -30,6 +32,7 @@ namespace API
       services.AddScoped<IProductRepository, ProductRepository>();
       // register service which uses Generics
       services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+      services.AddAutoMapper(typeof(MappingProfiles));
       // services.AddSwaggerGen(c =>
       // {
       //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
