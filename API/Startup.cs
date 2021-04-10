@@ -10,6 +10,9 @@ using Microsoft.OpenApi.Models;
 using AutoMapper;
 using API.Helpers;
 using API.Middleware;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using API.Errors;
 
 namespace API
 {
@@ -34,6 +37,28 @@ namespace API
       // register service which uses Generics
       services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
       services.AddAutoMapper(typeof(MappingProfiles));
+
+      // brings 400 Validation Error into line with the other error responses (uses custom error response view)
+      services.Configure<ApiBehaviorOptions>(options =>
+      {
+        options.InvalidModelStateResponseFactory = ActionContext =>
+        {
+          // Getting "errors"-array of STRINGS,in which each of the string is ErrorMessage string. 
+          // Note: Errors-objects are flattened out into an array of strings.
+          var errors = ActionContext.ModelState
+            .Where(e => e.Value.Errors.Count > 0)
+            .SelectMany(x => x.Value.Errors)
+            .Select(x => x.ErrorMessage).ToArray();
+
+          var errorResonse = new ApiValidationErrorResponse
+          {
+            Errors = errors
+          };
+
+          return new BadRequestObjectResult(errorResonse);
+        };
+      });
+
       // services.AddSwaggerGen(c =>
       // {
       //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
