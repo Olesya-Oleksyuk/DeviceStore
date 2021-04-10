@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
 using API.Helpers;
+using API.Middleware;
 
 namespace API
 {
@@ -42,15 +43,18 @@ namespace API
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+      // // REPLACED with our own Exception Handling Middleware !!!
+      // // Exception Handling option #1: Error Handling applying to whether or not we're in development.
+      // // Use the Developer Exception Page. 
+      // if (env.IsDevelopment())
+      // {
+      //   app.UseDeveloperExceptionPage();
+      //   // app.UseSwagger();
+      //   // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
+      // }
 
-      // Exception Handling option #1: Error Handling applying to whether or not we're in development.
-      // Use the Developer Exception Page. 
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-        // app.UseSwagger();
-        // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
-      }
+      // Exception Handling option #2: custom Exception Handling Middleware.
+      app.UseMiddleware<ExceptionMiddleware>();
 
       app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
