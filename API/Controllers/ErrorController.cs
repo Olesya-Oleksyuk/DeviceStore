@@ -6,6 +6,7 @@ namespace API.Controllers
   // override the routes that we get from our base API controller
   //   redirected to the ApiResponse.cs ???
   [Route("errors/{code}")]
+  [ApiExplorerSettings(IgnoreApi = true)]
   public class ErrorController : BaseApiController
   {
     /// <summary>

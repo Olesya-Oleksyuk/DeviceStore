@@ -59,10 +59,10 @@ namespace API
         };
       });
 
-      // services.AddSwaggerGen(c =>
-      // {
-      //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-      // });
+      services.AddSwaggerGen(c =>
+      {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "DeviceStore API ", Version = "v1" });
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,12 +71,15 @@ namespace API
       // // REPLACED with our own Exception Handling Middleware !!!
       // // Exception Handling option #1: Error Handling applying to whether or not we're in development.
       // // Use the Developer Exception Page. 
-      // if (env.IsDevelopment())
-      // {
-      //   app.UseDeveloperExceptionPage();
-      //   // app.UseSwagger();
-      //   // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
-      // }
+      if (env.IsDevelopment())
+      {
+        // app.UseDeveloperExceptionPage();
+
+        // allows us to browse to a web page, which is gonna show all of our API endpoints
+        app.UseSwagger();
+        // set up a URL where put the Swagger endpoint is gonna be located
+        app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "DeviceStore API v1"); });
+      }
 
       // Exception Handling option #2: custom Exception Handling Middleware.
       app.UseMiddleware<ExceptionMiddleware>();
@@ -98,3 +101,4 @@ namespace API
     }
   }
 }
+
