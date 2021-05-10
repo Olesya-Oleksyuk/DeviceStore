@@ -44,13 +44,13 @@ namespace API.Controllers
 
     [HttpGet("{id}")] // get "id" as a route paramater 
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
     {
       var spec = new ProductsWithTypesAndBrandsSpecification(id);
       // return the single Product(id) entity with navigation properties 
       var product = await _productsRepo.GetEntityWithSpec(spec);
-
+      // if the client has requested a product that doesn't exists (i.e. we didn't find a pruduct with a particular ID)
       if (product == null) return NotFound(new ApiResponse(404));
       return _mapper.Map<Product, ProductToReturnDto>(product);
     }
