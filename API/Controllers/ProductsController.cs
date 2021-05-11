@@ -35,10 +35,11 @@ namespace API.Controllers
     // /api/products(?sort=priceAsc)
     //  как зазадётся имя параметра sort - непонятно. 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(string sort)
+    public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(
+      string sort, int? brandId, int? typeId)
     {
       // pass "sort" query string to the specification class
-      var spec = new ProductsWithTypesAndBrandsSpecification(sort);
+      var spec = new ProductsWithTypesAndBrandsSpecification(sort, brandId, typeId);
       // return the IReadOnlyList<Product> with navigation properties (it hits the DB)
       var products = await _productsRepo.ListAsync(spec);
       // here we are dealing with the object in the memory (we don't hit the DB now)
