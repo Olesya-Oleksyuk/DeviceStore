@@ -25,7 +25,12 @@ namespace Core.Specifications
     public List<Expression<Func<T, object>>> Includes { get; } =
         new List<Expression<Func<T, object>>>();
 
+    public Expression<Func<T, object>> OrderBy { get; private set; }
 
+    public Expression<Func<T, object>> OrderByDescending { get; private set; }
+
+
+    // ! Following methods need to be evaluated by the specification evaluator. 
 
     /// <summary>
     ///  Allows us to add Include() statements to "Includes" list.
@@ -34,6 +39,18 @@ namespace Core.Specifications
     protected void AddInclude(Expression<Func<T, object>> includeExpression)
     {
       Includes.Add(includeExpression);
+    }
+
+    protected void AddOrderBy(Expression<Func<T, object>> orderByExpression)
+    {
+      // set the property 
+      OrderBy = orderByExpression;
+    }
+
+    protected void AddOrderByDescending(Expression<Func<T, object>> orderByDescExpression)
+    {
+      // set the property 
+      OrderByDescending = orderByDescExpression;
     }
 
 

@@ -18,11 +18,21 @@ namespace Infrastructure.Data
     {
       var query = inputQuery;
 
-      // Evaluate what's inside this specification
+      // !  Evaluate what's inside this specification
       if (spec.Criteria != null)
       {
         // Give me a Product, where the Product matches the Criteria from the Spec (i.e. matches given lambda expression)
         query = query.Where(spec.Criteria); // Criteria = (p => p.ProductTypeId == id) - lambda expression
+      }
+      if (spec.OrderBy != null)
+      {
+        // Give me a Product ordered by smth (i.e matches the given lambda expression from spec - ProductsWithTypesAndBransSpecification.cs)
+        query = query.OrderBy(spec.OrderBy);
+      }
+      if (spec.OrderByDescending != null)
+      {
+        // Give me a Product orderded by descending 
+        query = query.OrderByDescending(spec.OrderByDescending);
       }
 
       // Evalute the Includes:
